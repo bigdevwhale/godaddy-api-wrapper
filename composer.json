@@ -4,6 +4,7 @@
   "description": "A GoDaddy API wrapper for PHP",
   "keywords": ["godaddy", "api", "wrapper"],
   "license": "MIT",
+  "minimum-stability": "stable",
   "authors": [
     {
       "name": "Marat Badykov",
