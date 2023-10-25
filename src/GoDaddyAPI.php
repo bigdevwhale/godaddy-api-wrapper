@@ -29,7 +29,7 @@ class GoDaddyAPI
 
     public function __construct($apiKey, $apiSecret, $isProduction = true)
     {
-        $this->httpClient = new GoDaddyApiClient($isProduction, $apiKey, $apiSecret);
+        $this->httpClient = new GoDaddyApiClient($apiKey, $apiSecret, $isProduction);
         $this->abuseRequest = new AbuseRequest($this->httpClient);
         $this->aftermarketRequest = new AftermarketRequest($this->httpClient);
         $this->agreementsRequest = new AgreementsRequest($this->httpClient);
