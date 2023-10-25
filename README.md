@@ -16,8 +16,6 @@ You can install this wrapper using Composer. If you don't have Composer installe
 
    ```bash
    composer require your-namespace/godaddy-api-wrapper
-   
-Replace your-package/your-package-name with the actual package name you want to use.
 
 3. After installation, you can use the wrapper by including the Composer autoloader in your PHP script:
    
