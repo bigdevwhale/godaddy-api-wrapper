@@ -51,11 +51,12 @@ class GoDaddyResponse
     /**
      * Get the response data in JSON format.
      *
+     * @param bool $array
      * @return string
      */
-    public function getData()
+    public function getData($array = true)
     {
-        return $this->data;
+        return $array ? json_decode($this->data, true) : false;
     }
 
     /**
