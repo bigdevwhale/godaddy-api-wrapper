@@ -129,9 +129,14 @@ class DomainsRequest
      * @return mixed - Response from the API.
      * @throws GoDaddyAPIException
      */
-    public function purchaseDomain($shopperId, $purchaseData)
+    public function purchaseDomain($purchaseData, $shopperId = null)
     {
-        $headers = ['X-Shopper-Id' => $shopperId];
+        $headers = [];
+
+        if ($shopperId) {
+            $headers = ['X-Shopper-Id' => $shopperId];
+        }
+
         $data = ['body' => $purchaseData];
 
         return $this->client->post('/v1/domains/purchase', $data, [], $headers);
