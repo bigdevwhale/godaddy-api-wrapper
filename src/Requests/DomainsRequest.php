@@ -1,5 +1,5 @@
 <?php
-
+namespace GoDaddyAPI\Requests;
 
 use GoDaddyAPI\Exceptions\GoDaddyAPIException;
 use GoDaddyAPI\Http\GoDaddyApiClient;

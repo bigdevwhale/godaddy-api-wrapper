@@ -1,13 +1,13 @@
 <?php
 namespace GoDaddyAPI;
 
-use DomainsRequest;
 use GoDaddyAPI\Http\GoDaddyApiClient;
 use GoDaddyAPI\Requests\AbuseRequest;
 use GoDaddyAPI\Requests\AftermarketRequest;
 use GoDaddyAPI\Requests\AgreementsRequest;
 use GoDaddyAPI\Requests\CertificatesRequest;
 use GoDaddyAPI\Requests\CountriesRequest;
+use GoDaddyAPI\Requests\DomainsRequest;
 use GoDaddyAPI\Requests\OrdersRequest;
 use GoDaddyAPI\Requests\ParkingRequest;
 use GoDaddyAPI\Requests\ShoppersRequest;
