@@ -1,0 +1,4 @@
+# Ignore Composer's vendor directory
+/vendor/
+
+.idea
