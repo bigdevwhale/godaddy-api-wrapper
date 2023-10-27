@@ -1,5 +1,5 @@
 {
-  "name": "your-namespace/godaddy-api-wrapper",
+  "name": "bigdevwhale/godaddy-api-wrapper",
   "type": "library",
   "description": "A GoDaddy API wrapper for PHP",
   "keywords": ["godaddy", "api", "wrapper"],
