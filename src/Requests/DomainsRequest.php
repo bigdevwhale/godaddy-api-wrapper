@@ -115,9 +115,8 @@ class DomainsRequest
     {
         $headers = ['X-Private-Label-Id' => $privateLabelId];
         $query = ['marketId' => $marketId];
-        $data = ['body' => $contacts];
 
-        return $this->client->post('/v1/domains/contacts/validate', $data, $query, $headers);
+        return $this->client->post('/v1/domains/contacts/validate', $contacts, $query, $headers);
     }
 
     /**
@@ -137,9 +136,7 @@ class DomainsRequest
             $headers = ['X-Shopper-Id' => $shopperId];
         }
 
-        $data = ['body' => $purchaseData];
-
-        return $this->client->post('/v1/domains/purchase', $data, [], $headers);
+        return $this->client->post('/v1/domains/purchase', $purchaseData, [], $headers);
     }
 
     /**
@@ -165,9 +162,7 @@ class DomainsRequest
      */
     public function validateDomainPurchase($purchaseData)
     {
-        $data = ['body' => $purchaseData];
-
-        return $this->client->post('/v1/domains/purchase/validate', $data);
+        return $this->client->post('/v1/domains/purchase/validate', $purchaseData);
     }
 
     /**
@@ -266,9 +261,7 @@ class DomainsRequest
             $headers['X-Shopper-Id'] = $shopperId;
         }
 
-        $data = ['body' => $purchaseData];
-
-        return $this->client->patch("/v1/domains/{$domain}", $data, $headers);
+        return $this->client->patch("/v1/domains/{$domain}", $purchaseData, $headers);
     }
 
     /**
@@ -285,8 +278,8 @@ class DomainsRequest
         if ($shopperId !== null) {
             $headers['X-Shopper-Id'] = $shopperId;
         }
-        $data = ['body' => $contacts];
-        return $this->client->patch("/v1/domains/{$domain}/contacts", $data, $headers);
+
+        return $this->client->patch("/v1/domains/{$domain}/contacts", $contacts, $headers);
     }
 
     /**
@@ -319,8 +312,7 @@ class DomainsRequest
         if ($shopperId !== null) {
             $headers['X-Shopper-Id'] = $shopperId;
         }
-        $data = ['body' => $privacyOptions];
-        return $this->client->post("/v1/domains/{$domain}/privacy/purchase", $data, [], $headers);
+        return $this->client->post("/v1/domains/{$domain}/privacy/purchase", $privacyOptions, [], $headers);
     }
 
     /**
@@ -339,12 +331,8 @@ class DomainsRequest
         if ($shopperId !== null) {
             $headers['X-Shopper-Id'] = $shopperId;
         }
-
-        // Prepare the request data with contacts
-        $data = ['body' => $contacts];
-
         // Make a PATCH request to update domain contacts
-        return $this->client->patch("/v1/domains/{$domain}/contacts", $data, $headers);
+        return $this->client->patch("/v1/domains/{$domain}/contacts", $contacts, $headers);
     }
 
     /**
@@ -384,11 +372,8 @@ class DomainsRequest
             $headers['X-Shopper-Id'] = $shopperId;
         }
 
-        // Prepare the request data with privacyOptions
-        $data = ['body' => $privacyOptions];
-
         // Make a POST request to purchase domain privacy
-        return $this->client->post("/v1/domains/{$domain}/privacy/purchase", $data, [], $headers);
+        return $this->client->post("/v1/domains/{$domain}/privacy/purchase", $privacyOptions, [], $headers);
     }
 
     /**
@@ -408,11 +393,8 @@ class DomainsRequest
             $headers['X-Shopper-Id'] = $shopperId;
         }
 
-        // Prepare the request data with records
-        $data = ['body' => $records];
-
         // Make a PATCH request to add DNS Records
-        return $this->client->patch("/v1/domains/{$domain}/records", $data, $headers);
+        return $this->client->patch("/v1/domains/{$domain}/records", $records, $headers);
     }
 
     /**
@@ -432,11 +414,8 @@ class DomainsRequest
             $headers['X-Shopper-Id'] = $shopperId;
         }
 
-        // Prepare the request data with records
-        $data = ['body' => $records];
-
         // Make a PUT request to replace DNS Records
-        return $this->client->put("/v1/domains/{$domain}/records", $data, $headers);
+        return $this->client->put("/v1/domains/{$domain}/records", $records, $headers);
     }
 
     /**
@@ -490,11 +469,8 @@ class DomainsRequest
             $headers['X-Shopper-Id'] = $shopperId;
         }
 
-        // Prepare the request data with records
-        $data = ['body' => $records];
-
         // Make a PUT request to replace DNS Records by type and name
-        return $this->client->put("/v1/domains/{$domain}/records/{$type}/{$name}", $data, $headers);
+        return $this->client->put("/v1/domains/{$domain}/records/{$type}/{$name}", $records, $headers);
     }
 
     /**
@@ -538,11 +514,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with records
-        $data = ['body' => $records];
-
         // Make a PUT request to replace DNS Records by type
-        return $this->client->put("/v2/customers/{$customerId}/domains/{$domain}/records/{$type}", $data, $headers);
+        return $this->client->put("/v2/customers/{$customerId}/domains/{$domain}/records/{$type}", $records, $headers);
     }
 
     /**
@@ -563,11 +536,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with renewalOptions if provided
-        $data = ['body' => $renewalOptions];
-
         // Make a POST request to renew the domain
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/renew", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/renew", $renewalOptions, [], $headers);
     }
 
     /**
@@ -588,11 +558,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with transferOptions
-        $data = ['body' => $transferOptions];
-
         // Make a POST request to purchase and start/restart domain transfer
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transfer", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transfer", $transferOptions, [], $headers);
     }
 
     /**
@@ -658,12 +625,8 @@ class DomainsRequest
         if ($requestId !== null) {
             $headers['X-Request-Id'] = $requestId;
         }
-
-        // Prepare the request data with nameServers
-        $data = ['body' => $nameServers];
-
         // Make a PUT request to replace name servers on the domain (API version two)
-        return $this->client->put("/v2/customers/{$customerId}/domains/{$domain}/nameServers", $data, $headers);
+        return $this->client->put("/v2/customers/{$customerId}/domains/{$domain}/nameServers", $nameServers, $headers);
     }
 
     /**
@@ -703,12 +666,8 @@ class DomainsRequest
         if ($requestId !== null) {
             $headers['X-Request-Id'] = $requestId;
         }
-
-        // Prepare the request data with privacyEmailForwardingSettings
-        $data = ['body' => $privacyEmailForwardingSettings];
-
         // Make a PATCH request to update privacy email forwarding settings (API version two)
-        return $this->client->patch("/v2/customers/{$customerId}/domains/{$domain}/privacy/forwarding", $data, [], $headers);
+        return $this->client->patch("/v2/customers/{$customerId}/domains/{$domain}/privacy/forwarding", $privacyEmailForwardingSettings, [], $headers);
     }
 
     /**
@@ -728,12 +687,8 @@ class DomainsRequest
         if ($requestId !== null) {
             $headers['X-Request-Id'] = $requestId;
         }
-
-        // Prepare the request data with redeemOptions if provided
-        $data = ['body' => $redeemOptions];
-
         // Make a POST request to purchase a restore for the given domain (API version two)
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/redeem", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/redeem", $redeemOptions, [], $headers);
     }
 
     /**
@@ -754,11 +709,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with renewalOptions
-        $data = ['body' => $renewalOptions];
-
         // Make a POST request to renew the specified Domain (API version two)
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/renew", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/renew", $renewalOptions, [], $headers);
     }
 
     /**
@@ -779,11 +731,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with transferOptions
-        $data = ['body' => $transferOptions];
-
         // Make a POST request to purchase and start/restart domain transfer (API version two)
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transfer", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transfer", $transferOptions, [], $headers);
     }
 
     /**
@@ -804,11 +753,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with the authCode
-        $data = ['body' => $authCode];
-
         // Make a POST request to accept the transfer in
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transferInAccept", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transferInAccept", $authCode, [], $headers);
     }
 
     /**
@@ -871,11 +817,8 @@ class DomainsRequest
             $headers['X-Request-Id'] = $requestId;
         }
 
-        // Prepare the request data with the authCode
-        $data = ['body' => $authCode];
-
         // Make a POST request to retry the transfer in
-        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transferInRetry", $data, [], $headers);
+        return $this->client->post("/v2/customers/{$customerId}/domains/{$domain}/transferInRetry", $authCode, [], $headers);
     }
 
     /**
@@ -992,11 +935,8 @@ class DomainsRequest
      */
     public function modifyForwardingDetailsV2($customerId, $fqdn, $forwardingRule)
     {
-        // Prepare the request data with forwardingRule
-        $data = ['body' => $forwardingRule];
-
         // Make a PUT request to modify forwarding details for the FQDN
-        return $this->client->put("/v2/customers/{$customerId}/domains/forwards/{$fqdn}", $data);
+        return $this->client->put("/v2/customers/{$customerId}/domains/forwards/{$fqdn}", $forwardingRule);
     }
 
     /**
@@ -1010,11 +950,8 @@ class DomainsRequest
      */
     public function createForwardingDetailsV2($customerId, $fqdn, $forwardingRule)
     {
-        // Prepare the request data with forwardingRule
-        $data = ['body' => $forwardingRule];
-
         // Make a POST request to create forwarding details for the FQDN
-        return $this->client->post("/v2/customers/{$customerId}/domains/forwards/{$fqdn}", $data);
+        return $this->client->post("/v2/customers/{$customerId}/domains/forwards/{$fqdn}", $forwardingRule);
     }
 
     /**
