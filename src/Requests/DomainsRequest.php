@@ -356,6 +356,28 @@ class DomainsRequest
     }
 
     /**
+     * Renew domain.
+     *
+     * @param string $domain The domain which to renew.
+     * @param array $renewOptions Options for purchasing privacy.
+     * @param string|null $shopperId Shopper ID of the domain owner (optional).
+     * @return mixed The API response, including the purchase response.
+     * @throws GoDaddyAPIException
+     */
+    public function renewDomain($domain, $renewOptions, $shopperId = null)
+    {
+        // Construct the request headers if shopperId is provided
+        $headers = [];
+        if ($shopperId !== null) {
+            $headers['X-Shopper-Id'] = $shopperId;
+        }
+
+        // Make a POST request to purchase domain privacy
+        return $this->client->post("/v1/domains/{$domain}/renew", $renewOptions, [], $headers);
+    }
+
+
+    /**
      * Purchase domain privacy for a specified domain.
      *
      * @param string $domain The domain for which to purchase privacy.
@@ -506,7 +528,7 @@ class DomainsRequest
      * @return mixed The API response.
      * @throws GoDaddyAPIException
      */
-    public function replaceDNSRecordsByType($customerId, $domain, $type, $records, $requestId = null)
+    public function replaceDNSRecordsByTypeV2($customerId, $domain, $type, $records, $requestId = null)
     {
         // Construct the request headers with X-Request-Id if provided
         $headers = [];
@@ -528,7 +550,7 @@ class DomainsRequest
      * @return mixed The API response, including the renewal response.
      * @throws GoDaddyAPIException
      */
-    public function renewDomain($customerId, $domain, $renewalOptions = null, $requestId = null)
+    public function renewDomainForCustomerV2($customerId, $domain, $renewalOptions = null, $requestId = null)
     {
         // Construct the request headers with X-Request-Id if provided
         $headers = [];
