@@ -6,6 +6,7 @@ use GoDaddyAPI\Exceptions\GoDaddyAPIException;
 use GoDaddyAPI\Models\GoDaddyResponse;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class GoDaddyApiClient
@@ -19,16 +20,17 @@ class GoDaddyApiClient
     public function __construct($apiKey, $apiSecret, $isProduction = true, $headers = [])
     {
         // Read the base URL from the configuration
-        $config = include(__DIR__ . '/../../config/config.php');;
+        $config = include(__DIR__ . '/../../config/config.php');
+        ;
         $baseUrl = $isProduction ? $config['production_base_url'] : $config['test_base_url'];
         // Create a new Guzzle HTTP client with base_uri and headers
         $this->client = new Client([
             'base_uri' => $baseUrl,
             'headers' => $headers + [
-                    'Content-Type' => 'application/json',
-                    'Accept' => 'application/json',
-                    'Authorization' => 'sso-key ' . $apiKey . ':' . $apiSecret,
-                ],
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json',
+                'Authorization' => 'sso-key ' . $apiKey . ':' . $apiSecret,
+            ],
         ]);
     }
 
@@ -54,9 +56,16 @@ class GoDaddyApiClient
             $headers = $response->getHeaders();
 
             return new GoDaddyResponse($statusCode, $body, $headers);
-        } catch (GuzzleException $e) {
-            // Handle Guzzle exceptions and convert to a GoDaddyAPIException
-            throw new GoDaddyAPIException($e->getMessage(), $e->getCode(), $e);
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                $statusCode = $e->getResponse()->getStatusCode();
+                $body = $e->getResponse()->getBody()->getContents();
+                $headers = $e->getResponse()->getHeaders();
+
+                throw new GoDaddyAPIException($body, $statusCode, $e);
+            } else {
+                throw new GoDaddyAPIException($e->getMessage(), $e->getCode(), $e);
+            }
         }
     }
 
